@@ -1,0 +1,33 @@
+{% extends 'commonbase.html' %}
+{% block content %}
+<html>
+    <body>
+        <table>
+            <form action="{% url 'nextAction2' %}" method="post">
+            {% csrf_token %}
+            
+            <tr>
+                <td><input type="text" name="uname" value="{{us}}" ></td>
+            </tr>
+            
+            <tr>
+                <th>NAME</th>
+                <td><input type="text" name="name" ></td>
+            </tr>
+            <tr>
+                <th>DOB</th>
+                <td><input type="date" name="DOB" ></td>
+            </tr>
+            <tr>
+                <th>PHONE NUMBER</th>
+                <td><input type="text" name="phonenumber" ></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" value="NEXT" ></td>
+            </tr>
+        </form>
+        </table>
+    </body>
+</html>
+{% endblock %}

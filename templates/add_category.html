@@ -1,0 +1,20 @@
+{% extends 'commonbase.html' %}
+{% block content %}
+<html>
+    <body>
+        <table>
+            <form action="{%url 'SaveAction' %}" method="post">
+            {% csrf_token %}
+            <tr>
+                <th>Category</th>
+                <td><input type="text" name="category"></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" name="Save"></td>
+            </tr>
+            </form>
+        </table>
+    </body>
+</html>
+{% endblock %}

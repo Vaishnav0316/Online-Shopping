@@ -1,0 +1,31 @@
+{% extends 'commonbase.html' %}
+{% block content %}
+<html>
+    <body>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>FILE</th>
+                <th>PRICE</th>
+                <th>STOCK</th>
+                <th>DETAILS</th>
+                <th>CATEGORY</th>
+            </tr>
+            {% for v in vp %}
+            <tr>
+                <td>{{v.id}}</td>
+                <td>{{v.Name}}</td>
+                <td><img src="{{v.File.url}}" height="=100px" width="100px"></td>
+                <td>{{v.Price}}</td>
+                <td>{{v.Stock}}</td>
+                <td>{{v.Details}}</td>
+                <td>{{v.Categoryid.Category_Name}}</td>
+                <td><li><a href="{% url 'edit' v.id%}">EDIT</a></li></td>
+                <td><li><a href="{% url 'delete' v.id%}">DELETE</a></li></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
+{% endblock %}

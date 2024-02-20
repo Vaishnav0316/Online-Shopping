@@ -1,0 +1,37 @@
+{% extends 'commonbase.html' %}
+{% block content %}
+<html>
+    <body>
+        <table>
+        <tr>
+            <th>PRODUCT</th>
+            <th>IMAGE</th>
+            <th>QUANTITY</th>
+            <th>TOTAL</th>
+            <th>ORDER DATE</th>
+            <th>ORDER TIME</th>
+
+        </tr>
+        {% for v in det %}
+        {% for a in it %}
+        <tr>
+            <td>{{a.Productid.Name}}</td>
+            <td><img src="{{a.Productid.File.url}}" height="=100px" width="100px"></td>
+            <td>{{a.Quantity}}</td>
+            <td>{{a.Total}}</td>
+            <td>{{v.OrderDate}}</td>
+            <td>{{v.OrderTime}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+        {% if v.Status == "Pending"  %}
+        <td><li><a href="{% url 'CancelOrder' v.id%}">CANCEL ORDER</a></li></td>
+        {% elif v.Status == "Approved" %}
+        <td><li><a href="{% url 'TrackingDetails' v.id%}">VIEW TRACKING DETAILS</a></li></td>
+        {% endif %}
+        {% endfor %}
+        </tr>   
+        </table>
+    </body>
+</html>
+{% endblock %}

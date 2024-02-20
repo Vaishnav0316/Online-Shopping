@@ -1,0 +1,16 @@
+{% extends 'commonbase.html' %}
+{% block content %}
+
+
+Welcome user
+{% if messages %}
+{% for msg in messages%}
+<script>
+alert('{{msg}}')
+</script>
+{% endfor %}
+{% endif%}
+<li><a href="{% url 'add_category' %}">ADD CATEGORY</a></li>
+<li><a href="{% url 'view_seller' %}">VIEW SELLER</a></li>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'commonbase.html' %}
+{% block content %}
+<html>
+    <body>
+        <table>
+        <tr>
+            <th>PRODUCT</th>
+            <th>IMAGE</th>
+            <th>QUANTITY</th>
+            <th>TOTAL</th>
+            <th>ORDER DATE</th>
+            <th>ORDER TIME</th>
+
+        </tr>
+        {% for v in de %}
+        {% for a in it %}
+        <tr>
+            <td>{{a.Productid.Name}}</td>
+            <td><img src="{{a.Productid.File.url}}" height="=100px" width="100px"></td>
+            <td>{{a.Quantity}}</td>
+            <td>{{a.Total}}</td>
+            <td>{{v.OrderDate}}</td>
+            <td>{{v.OrderTime}}</td>
+        </tr>
+        {% endfor %}
+
+        {% if v.Status == "Pending" %}
+        <tr>
+            <td><li><a href="{% url 'Approve_prdct' v.id %}">APPROVE</a></li></td>
+            <td><li><a href="{% url 'Reject_prdct' v.id %}">REJECT</a></li></td>
+        </tr>
+        {% elif v.Status == "Cancelled" %}
+            <td><label style="font-weight: bolder;color: red;">Order Has been Cancelled</label></td>
+        {% elif v.Status == "Rejected" %}
+            <td><li><a href="{% url 'Confirmreject' v.id %}">Confirm Reject</a></li></td>
+        {% elif v.Status == "Approved" %} 
+            <td><li><a href="{% url 'Track' v.id %}">Tracking Details</a></li></td>      
+        {% endif %}
+        {% endfor %}
+           
+        </table>
+    </body>
+</html>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'commonbase.html' %}
+{% block content %}
+<html>
+    <body>
+        <table>
+            <form action="{% url 'saveAction' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <tr>
+                <th>NAME</th>
+                <td><input type="text" name="name" id="id"></td>
+            </tr>
+            <tr>
+                <th>FILE</th>
+                <td><input type="file" name="image" ></td>
+            </tr>
+            <tr>
+                <th>PRICE</th>
+                <td><input type="number" name="price"></td>
+            </tr>
+            <tr>
+                <th>STOCK</th>
+                <td><input type="number" name="stock"></td>
+            </tr>
+            <tr>
+                <th>DETAILS</th>
+                <td><textarea cols="10" rows="5" name="details"></textarea></td>
+            </tr>
+            <tr>
+                <th>CATEGORY</th>
+                <td>
+                <select name="category" id="category">
+                <option value="">--select--</option>
+                {% for v in ca %}
+                <option value="{{v.id}}">{{v.Category_Name}}</option>
+                {% endfor %}
+                </select>
+            </td>
+            </tr>
+            
+            <tr>
+                <th></th>
+                <td><input type="submit" value="Save"></td>
+            </tr>
+            
+            </form>
+        </table>
+    </body>
+</html>
+{% endblock %}

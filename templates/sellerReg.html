@@ -1,0 +1,144 @@
+{% extends 'commonbase.html' %}
+{% block content %}
+<html>
+    <body>
+        <table>
+            <script type="text/javascript">
+                function validation(){
+                    var alpha=/^[a-z A-Z]+$/;
+                    var num=/^[0-9]+$/;
+                    var email=/^[\w\-\.\+]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z0-9]{2,4}$/;
+        
+                    var name=document.getElementById('name');
+                    var gender=document.myform.gender;
+                    var DOB=document.getElementById('DOB')
+                    var country=document.getElementById('country');
+                    var phonenumber=document.getElementById('phonenumber');
+                    var username=document.getElementById('username');
+                    var password=document.getElementById('password');
+        
+                    if(name.value.length == 0)
+                    {
+                        alert("Enter name");
+                        return false;
+                    }
+                    else if(!name.value.match(alpha))
+                    {
+                        alert("Invalid name");
+                        return false;
+                    }
+        
+                    else if(gender[0].checked == false && gender[1].checked == false)
+                    {
+                        alert("enter gender");
+                        return false;
+                    }
+                    else if(DOB.value.length == 0)
+                    {
+                        alert("Enter DOB");
+                        return false;
+                    }
+                    else if(country.value.length == 0)
+                    {
+                        alert("enter country");
+                        return false;
+                    }
+                    else if(phonenumber.value.length == 0)
+                    {
+                        alert("Enter Phone number");
+                        return false;
+                    }
+                    else if(username.value.length == 0)
+                    {
+                        alert("enter username");
+                        return false;
+                    }
+                    else if(!username.value.match(email))
+                    {
+                        alert("invalid username");
+                        username.focus();
+                        return false;
+                    }
+                    else if(password.value.length == 0)
+                    {
+                        alert("enter password");
+                        return false;
+        
+                    }
+                    else{
+                        return true;
+                    }
+                }
+            </script>
+                    <script src="/static/jquery-1.8.3.min.js"></script>
+                    <script>
+                        $(document).ready(function(){
+                            $("#username").change(function(){
+                                var uid=$("#username").val();
+                                $.ajax({
+                                    url:"{% url 'checkuser' %}",
+                                    data:{'us':uid},
+                                    success:function(data){
+                                  
+                                        if(data.valid == 'exist')
+                                        {
+                                            alert("Username already exist");
+                                            $("#username").val();
+                                        }
+                                    }
+                                })
+                            })
+                        })
+            </script>
+            
+            <form action="{% url 'sellerRegAction' %}" method="post" name="myform" enctype="multipart/form-data">
+            {% csrf_token %}
+            <tr>
+                <th>NAME</th>
+                <td><input type="text" id="name" name="name" ></td>
+            </tr>
+            <tr>
+                <th>GENDER</th>
+                <td><input type="radio" name="gender" id="gender" value="Male">Male
+                <input type="radio" name="gender" id="gender" value="Female">Femle</td>
+            </tr>
+            <tr>
+                <th>DOB</th>
+                <td><input type="date" name="DOB" id="DOB"></td>
+            </tr>
+            <th>COUNTRY</th>
+                <td><select name="country" id="country">
+                <option value="">--SELECT--</option>
+                <option value="India">INDIA</option>
+                <option value="China">CHINA</option>
+                <option value="USA">USA</option>
+                <option value="Australia">AUSTRALIA</option>
+                <option value="KSA">KSA</option>
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <th>PHONE NUMBER</th>
+                <td><input type="text" name="phonenumber" id="phonenumber"></td>
+            </tr>
+            <tr>
+                <th>PHOTO</th>
+                <td><input type="file" name="image" ></td>
+                </tr>
+            <tr>
+                <th>USERNAME</th>
+                <td><input type="text" id="username" name="username"></td>
+            </tr>
+            <tr>
+                <th>PASSWORD</th>
+                <td><input type="password" id="password" name="password"></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" value="Register" onclick="return validation()"></td>
+            </tr>
+            </form>
+        </table>
+    </body>
+</html>
+{% endblock %}

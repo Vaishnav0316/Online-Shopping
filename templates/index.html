@@ -1,0 +1,13 @@
+{% extends 'commonbase.html' %}
+
+WELCOME
+<li><a href="{% url 'login' %}">LOGIN</a></li>
+<li><a href="{% url 'buyerReg' %}">BUYER REGISTRATION</a></li>
+<li><a href="{% url 'sellerReg' %}">SELLER REGISTRATION</a></li>
+{% if messages %}
+{% for msg in messages%}
+<script>
+alert('{{msg}}')
+</script>
+{% endfor %}
+{% endif%}

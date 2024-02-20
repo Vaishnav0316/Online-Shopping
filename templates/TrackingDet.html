@@ -1,0 +1,22 @@
+{% extends 'commonbase.html' %}
+{% block content %}
+<html>
+    <body>
+        <table>
+            
+            <tr>
+                <th>DETAILS</th>
+                <th>DATE</th>
+                <th>TIME</th>
+            </tr>
+            <tr>
+                {% for v in tr %}
+                <td>{{v.Details}}</td>
+                <td>{{v.Date}}</td>
+                <td>{{v.Time}}</td>
+                {% endfor %}
+            </tr>
+        </table>
+    </body>
+</html>
+{% endblock %}

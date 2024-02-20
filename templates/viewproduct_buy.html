@@ -1,0 +1,47 @@
+{% extends 'commonbase.html' %}
+{% block content %}
+
+
+<html>
+    <body>
+        <table>
+            <form action="{% url 'searchAction' %}" method="post">
+            {% csrf_token %}
+            <tr>
+                <th>SEARCH</th>
+                <td><input type="text" name="search"></td>
+                <td><input type="submit" name="Search" value="Search"></td>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>FILE</th>
+                <th>PRICE</th>
+                
+                <th>DETAILS</th>
+                <th>CATEGORY</th>
+            </tr>
+            {% for v in vp %}
+            <tr>
+                <td>{{v.id}}</td>
+                <td>{{v.Name}}</td>
+                <td><img src="{{v.File.url}}" height="=100px" width="100px"></td>
+                <td>{{v.Price}}</td>
+                <td>{{v.Details}}</td>
+                <td>{{v.Categoryid.Category_Name}}</td>
+                <td><li><a href="{% url 'addtocart' v.id%}">ADD TO CART</a></li></td>
+            </tr>
+            {% endfor %}
+        
+        </form>
+        </table>
+        {% if messages %}
+        {% for msg in messages%}
+        <script>
+        alert('{{msg}}')
+        </script>
+        {% endfor %}
+        {% endif%}
+    </body>
+</html>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'commonbase.html' %}
+{% block content %}
+<html>
+    <body>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>GENDER</th>
+                <th>DOB</th>
+                <th>COUNTRY</th>
+                <th>PHONE NUMBER</th>
+                <th>IMAGE</th>
+                <th>USERNAME</th>
+                <th>STATUS</th>
+            </tr>
+{% for v in se %}
+<tr>
+<td>{{v.id}}</td>
+<td>{{v.Name}}</td>
+<td>{{v.Gender}}</td>
+<td>{{v.DOB}}</td>
+<td>{{v.Country}}</td>
+<td>{{v.PhoneNumber}}</td>
+<td><img src="{{v.File.url}}" height="=100px" width="100px"></td>
+<td>{{v.Username}}</td>
+<td>{{v.Status}}</td>
+<td><li><a href="{% url 'approve' v.id%}">APPROVE</a></li>
+<td><li><a href="{% url 'reject' v.id%}">REJECT</a></li>
+</td>
+</tr>
+{% endfor %}
+</table>
+</body>
+</html>
+{% endblock %}

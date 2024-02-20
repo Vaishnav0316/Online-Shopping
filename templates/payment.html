@@ -1,0 +1,98 @@
+{% extends 'commonbase.html' %}
+{% block content %}
+<html>
+    <body>
+        <table>
+            <script type="text/javascript">
+                function validation(){
+                    var alpha=/^[A-Z]+$/;
+                    var num=/^[0-9]+$/;
+
+                    var name=document.getElementById('name');
+                    var cnum=document.getElementById('cnum');
+                    var cvv=document.getElementById('cvv');
+                    var expiry=document.getElementById('expiry');
+                    if(name.value.length == 0)
+                    {
+                        alert("Enter name");
+                        return false;
+                    }
+                    else if(!name.value.match(alpha))
+                    {
+                        alert("Enter the name in block letters");
+                        name.focus();
+                        return false;
+                    }
+                    else if(cnum.value.length == 0)
+                    {
+                        alert("Enter a valid card number");
+                        return false;
+                    }
+                    else if(!cnum.value.match(num))
+                    {
+                        alert("Enter a valid card number");
+                        cnum.focus();
+                        return false;
+                    }
+                    else if(cnum.value.length!=12)
+                    {
+                        alert("Enter a valid card number");
+                        return false;
+                    }
+                    else if(cvv.value.length == 0)
+                    {
+                        alert("Enter a valid CVV");
+                        return false;
+                    }
+                    else if(!cvv.value.match(num))
+                    {
+                        alert("Enter a valid CVV");
+                        cvv.focus();
+                        return false;
+                    }
+                    else if(cvv.value.length!=3)
+                    {
+                        alert("Enter a valid CVV");
+                        return false;
+                    }
+                    else if(expiry.value.length == 0)
+                    {
+                        alert("Enter a valid Expiry Date");
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+            </script>    
+            <form action="{% url 'payAction'  %}" method="post" name="myform">
+            {% csrf_token %}
+            {% for v in pa %}
+            <input type="hidden" value="{{v.id}}" name="oid">         
+            <tr>
+                <th>Name on the Card</th>
+                <td><input type="text" name="name" id="name" placeholder="NAME IN BLOCK LETTERS"></td>
+            </tr>
+            <tr>
+                <th>Card Number</th>
+                <td><input type="text" name="cnum" id="cnum" placeholder="12 DIGIT"></td>
+            </tr>
+            <tr>
+                <th>CVV</th>
+                <td><input type="text" name="cvv" id="cvv" placeholder="- - -"></td>
+            </tr>
+            <tr>
+                <th>Expiry Date</th>
+                <td><input type="month" name="expiry" id="expiry" ></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" name="pay" value="Pay {{v.GrandTotal}} " onclick="return validation()"></td>
+            </tr>
+            {% endfor %}
+        </form>
+        </table>
+    </body>
+</html>
+{% endblock %}

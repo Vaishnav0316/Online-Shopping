@@ -1,0 +1,26 @@
+{% extends 'commonbase.html' %}
+{% block content %}
+<html>
+    <body>
+        <table>
+        <tr>
+            <th>ORDER NO</th>
+            <th>NAME</th>
+            <th>ADDRESS</th>
+            <th>PHONE NUMBER</th>
+        </tr>
+        {% for v in ors %}
+        <tr>
+
+            <td>{{v.Orderid.id}}</td>
+            <td>{{v.Orderid.customer_name}}</td>
+            <td>{{v.Address}}</td>
+            <td>{{v.Phonenumber}}</td>
+            <td><li><a href="{% url 'details_seller' v.Orderid.id %}">DETAILS</a></li></td>
+            
+        </tr>
+        {% endfor %}
+        </table>
+    </body>
+</html>
+{% endblock %}

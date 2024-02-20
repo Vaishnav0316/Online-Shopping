@@ -1,0 +1,48 @@
+{% extends 'commonbase.html' %}
+{% block content %}
+<html>
+    <body>
+        <table>
+            <form action="{% url 'orderAction' %}" method="post">
+            {% csrf_token %}
+            <tr>
+                <th>NAME</th>
+                <th>IMAGE</th>
+                <th>QUANTITY</th> 
+                <th>TOTAL</th>
+            </tr>
+            {% for v in ca %}
+            <tr>
+              
+                <td>{{v.Productid.Name}}</td>
+                <td><img src="{{v.Productid.File.url}}" height="=100px" width="100px"></td>
+                <td>{{v.Quantity}}</td>
+                <td>{{v.Total}}</td>
+                <td><li><a href="{% url 'delete_cart' v.id %}">DELETE</a></li></td>
+             </tr>
+            {% endfor %}
+            <tr>
+                <th>Grand Total</th>
+                <td><input type="text" name="gtotal" value="{{gt}}"></td>
+            </tr>
+            <tr>
+                <th>Name</th> 
+            <td><input type="text" name="name"></td>
+            </tr>
+            <tr>
+                <th>Shipping Address</th>
+                <td><textarea name="Shipingaddress" id="" cols="20" rows="5"></textarea></td>              
+            </tr>
+            <tr>
+                <th>Phone Number</th>
+                <td><input type="text" name="number"></td>              
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" value="Order"></td>
+            </tr>
+        </form>
+        </table>
+    </body>
+</html>
+{% endblock %}

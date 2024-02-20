@@ -1,0 +1,35 @@
+{% extends 'loginbase.html' %}
+
+<html>
+    <body>
+        <form method="post" action="{% url 'loginAction' %}">
+            {% csrf_token %}
+        <table>
+            <tr>
+                <th>USERNAME</th>
+                <td><input type="text" name="username"></td>
+            </tr>
+            <tr>
+                <th>PASSWORD</th>
+                <td><input type="password" name="password"></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" value="LOGIN"></td>
+            </tr>
+            <tr>
+                <td><li><a href="{% url 'forgotpswd' %}">FORGOT PASSWORD</a></li>
+                </td>
+            </tr>
+        </table>
+        </form>
+        {% if messages %}
+        {% for msg in messages%}
+        <script>
+        alert('{{msg}}')
+        </script>
+        {% endfor %}
+        {% endif%}
+    </body>
+</html>
+

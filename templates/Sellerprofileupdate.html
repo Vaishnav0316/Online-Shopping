@@ -1,0 +1,71 @@
+{% extends 'commonbase.html' %}
+{% block content %}
+<html>
+    <body>
+        <form action="{% url 'sellerupdateAction' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+
+            {% for v in upd %}
+            <input type="hidden" name="id" value="{{v.id}}">
+            <tr>
+                <th>NAME</th>
+                <td><input type="text" name="name" value="{{v.Name}}"></td>
+            </tr>
+            <tr>
+                <th>GENDER</th>
+                <td>
+                {% if v.Gender == 'Male' %}
+                    <input type="radio" name="gender" checked="true" value="male">Male
+                    <input type="radio" name="gender"  value="female">Female</td>
+                {% else %}
+                    <input type="radio" name="gender" value="male">Male
+                    <input type="radio" name="gender" checked="true"  value="female">Female</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th>DOB</th>
+                <td><input type="date" name="DOB" value="{{v.DOB}}"></td>
+            </tr>
+            <tr>
+                <th>COUNTRY</th>
+                <td>
+                    <select name="country">
+                        <option value="{{v.Country}}">{{v.Country}}</option>
+                        <option value="India">INDIA</option>
+                        <option value="China">CHINA</option>
+                        <option value="USA">USA</option>
+                        <option value="Australia">AUSTRALIA</option>
+                        <option value="KSA">KSA</option>
+                        </select>
+                </td>
+            </tr>
+            <tr>
+                <th>PHONE NUMBER</th>
+                <td><input type="text" name="phonenumber" value="{{v.PhoneNumber}}"></td>
+            </tr>
+            <tr>
+                <th>IMAGE</th>
+                <td>  <img src="{{v.File.url}}" height="100px" width="100px" alt="No pic"><input type="file" name="image"></td>
+            </tr>
+            <tr>
+                <th>USERNAME</th>
+                <td><input type="text" name="username" value="{{v.Username}}"></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" value="Update"></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </form>
+    {% if messages %}
+    {% for msg in messages%}
+    <script>
+    alert('{{msg}}')
+    </script>
+    {% endfor %}
+    {% endif%}
+    </body>
+</html>
+{% endblock %}

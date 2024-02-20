@@ -1,0 +1,18 @@
+{% extends 'commonbase.html' %}
+{% block content %}
+
+WELCOME BUYER
+<li><a href="{% url 'ProfileUpdate' %}">Update Profile</a></li>
+<li><a href="{% url 'viewproduct_buy' %}">VIEW PRODUCT</a></li>
+<li><a href="{% url 'Viewcart' %}">VIEW CART</a></li>
+<li><a href="{% url 'Vieworder' %}">VIEW ORDERS</a></li>
+<li><a href="{% url 'ResetPassword' %}">RESET PASSWORD</a></li>
+<li><a href="{% url 'logout'%}">LOGOUT</a></li>
+{% if messages %}
+{% for msg in messages%}
+<script>
+alert('{{msg}}')
+</script>
+{% endfor %}
+{% endif%}
+{% endblock %}
